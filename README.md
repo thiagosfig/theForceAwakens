@@ -10,8 +10,8 @@ Trabalho apresentado à disciplina de PAA com o objetivo de explorar os paradigm
 
 # ENTRY:
 
-t 	(tq 0 < t <= 100)
-n k 	(tq 0 < n <= 500 & 0 < k <= 250)
+t 	(tq 0 < t <= 100)\n
+n k 	(tq 0 < n <= 500 & 0 < k <= 250)\n
 a1
 a2
 
