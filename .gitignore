@@ -1,3 +1,7 @@
+#LibreOffice
+*.ods#
+*.odt#
+
 # Prerequisites
 *.d
 
