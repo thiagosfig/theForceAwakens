@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+int minMax;
+
 void combinationUtil(int *path, int arr[], int data[], int start, int end, int index, int r, int n)
 {
     int pathSize = n;
@@ -9,27 +11,38 @@ void combinationUtil(int *path, int arr[], int data[], int start, int end, int i
     int posAtual = 0;
     int posDestino = 0;
     int custoViagem = 0;
+    int maxLocal = 0;
 
     if (index == r)
     {
         for (j = 0; j < r; j++)
         {
             posDestino = data[j];
-            printf("\nSaindo de %d para %d -> ", posAtual, posDestino);
+            // printf("\nSaindo de %d para %d -> ", posAtual, posDestino);
             for (int y = posAtual; y < posDestino; y++)
             {
                 custoViagem = custoViagem + path[y];
             }
-            printf("Custo: %d", custoViagem);
+            // printf("Custo: %d", custoViagem);
+            if (custoViagem > maxLocal)
+                maxLocal = custoViagem;
             custoViagem = 0;
             posAtual = data[j];
         }
-        printf("\nSaindo de %d para F -> ", posAtual);
+        // printf("\nSaindo de %d para F -> ", posAtual);
         for (int y = posAtual; y <= pathSize + 1; y++)
         {
             custoViagem = custoViagem + path[y];
         }
-        printf("Custo: %d\n\n", custoViagem);
+        // printf("Custo: %d\n", custoViagem);
+        if (custoViagem > maxLocal)
+            maxLocal = custoViagem;
+        // printf("Max local = %d\n", maxLocal);
+
+        if (minMax > maxLocal)
+            minMax = maxLocal;
+
+        return;
     }
 
     for (i = start; i <= end && end - i + 1 >= r - index; i++)
@@ -39,11 +52,16 @@ void combinationUtil(int *path, int arr[], int data[], int start, int end, int i
     }
 }
 
-void printCombination(int *path, int arr[], int n, int r)
+void Combination(int *path, int arr[], int n, int r)
 {
     int data[r];
+    minMax = 9999;
 
     combinationUtil(path, arr, data, 0, n - 1, 0, r, n);
+
+    printf("\n%d", minMax);
+
+    return;
 }
 
 void dynamicProg(int n, int k, int *a)
@@ -84,7 +102,7 @@ void bruteForce(int n, int k, int *a)
         comb[i - 1] = i;
     }
 
-    printCombination(a, comb, n, k);
+    Combination(a, comb, n, k);
 
     free(comb);
 
@@ -124,7 +142,7 @@ void readEntry(int type)
     int t, n, k, a;
     int *ptr;
     printf("Digite sua entrada: ");
-    scanf("%d\n", &t);
+    scanf("%d", &t);
 
     for (int j = 0; j < t; j++)
     {
