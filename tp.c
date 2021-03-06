@@ -2,42 +2,40 @@
 #include <stdlib.h>
 #include <string.h>
 
-//CONTADOR PARA QUANTIDADE DE COMBINAÇÕES(n, k)
-int counter;
-
-void combinationUtil(int *path, int arr[], int data[], int start, int end, int index, int r)
+void combinationUtil(int *path, int arr[], int data[], int start, int end, int index, int r, int n)
 {
-    int pathSize = sizeof(path) / sizeof(path[0]);
+    int pathSize = n;
     int i, j;
     int posAtual = 0;
     int posDestino = 0;
+    int custoViagem = 0;
 
     if (index == r)
     {
         for (j = 0; j < r; j++)
         {
             posDestino = data[j];
-            printf("Saindo de %d para %d\n", posAtual, posDestino);
+            printf("\nSaindo de %d para %d -> ", posAtual, posDestino);
+            for (int y = posAtual; y < posDestino; y++)
+            {
+                custoViagem = custoViagem + path[y];
+            }
+            printf("Custo: %d", custoViagem);
+            custoViagem = 0;
             posAtual = data[j];
         }
-        printf("Saindo de %d para F\n\n", posAtual);
-
-        // for (int x = 0; x <= pathSize + 1; x++)
-        // {
-        //     printf("%d ", path[x]);
-        // }
-        // printf(" -> ");
-        // for (j = 0; j < r; j++)
-        //     printf("%d ", data[j]);
-        // counter++;
-        // printf("\n");
-        return;
+        printf("\nSaindo de %d para F -> ", posAtual);
+        for (int y = posAtual; y <= pathSize + 1; y++)
+        {
+            custoViagem = custoViagem + path[y];
+        }
+        printf("Custo: %d\n\n", custoViagem);
     }
 
     for (i = start; i <= end && end - i + 1 >= r - index; i++)
     {
         data[index] = arr[i];
-        combinationUtil(path, arr, data, i + 1, end, index + 1, r);
+        combinationUtil(path, arr, data, i + 1, end, index + 1, r, n);
     }
 }
 
@@ -45,7 +43,7 @@ void printCombination(int *path, int arr[], int n, int r)
 {
     int data[r];
 
-    combinationUtil(path, arr, data, 0, n - 1, 0, r);
+    combinationUtil(path, arr, data, 0, n - 1, 0, r, n);
 }
 
 void dynamicProg(int n, int k, int *a)
@@ -79,25 +77,16 @@ void greedyAlg(int n, int k, int *a)
 void bruteForce(int n, int k, int *a)
 {
 
-    int *comb = (int *)malloc(n * sizeof(int));
+    int *comb = (int *)calloc(n, sizeof(int));
 
     for (int i = 1; i < n + 1; i++)
     {
         comb[i - 1] = i;
     }
 
-    //printf("\nn = %d, k=%d", n, k);
-
-    // for (int i = 0; i < n + 1; i++)
-    // {
-    //     printf("\n%d", a[i]);
-    // }
-    // printf("\n\n");
-
-    printf("\nCOMB(%d, %d)\n", n, k);
     printCombination(a, comb, n, k);
-    printf("\n %d \n", counter);
-    counter = 0;
+
+    free(comb);
 
     return;
 }
@@ -141,7 +130,7 @@ void readEntry(int type)
     {
         scanf("%d %d", &n, &k);
 
-        ptr = (int *)malloc(n + 1 * sizeof(int));
+        ptr = (int *)calloc(n + 1, sizeof(int));
 
         if (ptr == NULL)
         {
@@ -186,18 +175,4 @@ int main(int argc, char **argv)
     readEntry(type);
 
     return 0;
-}
-
-void exampleComb()
-{
-
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int r = 3;
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    // NECESSÁRIO TIRAR PARAMETRO PATH DA FUNÇÃO ORIGINAL
-    // printCombination(arr, n, r);
-
-    printf("%d", counter);
-    return;
 }
