@@ -11,7 +11,7 @@ void Combination(int *path, int comb[], int n, int k)
     int data[k];
     minMax = 9999;
 
-    combinationUtil(path, comb, data, 0, n - 1, 0, k, n);
+    combinationUtil(path, comb, data, 0, n - 1, 0, k, n, minMax);
 
     printf("\n%d", minMax);
 

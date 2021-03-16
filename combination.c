@@ -1,7 +1,7 @@
 #include "combination.h"
 #include <stdio.h>
 
-void combinationUtil(int *path, int comb[], int data[], int start, int end, int index, int k, int n)
+void combinationUtil(int *path, int comb[], int data[], int start, int end, int index, int k, int n, int minMax)
 {
     int pathSize = n;
     int i, j;
@@ -45,6 +45,6 @@ void combinationUtil(int *path, int comb[], int data[], int start, int end, int 
     for (i = start; i <= end && end - i + 1 >= k - index; i++)
     {
         data[index] = comb[i];
-        combinationUtil(path, comb, data, i + 1, end, index + 1, k, n);
+        combinationUtil(path, comb, data, i + 1, end, index + 1, k, n, minMax);
     }
 }
