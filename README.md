@@ -4,7 +4,7 @@ Trabalho apresentado à disciplina de PAA com o objetivo de explorar os paradigm
 
 # COMANDOS NO TERMINAL:
 	
-	$ gcc tp.c -o tp
+	$ make
 	$ ./tp [ PD | AG | FB ]
 	$ <entrada do tipo ENTRY>
 
