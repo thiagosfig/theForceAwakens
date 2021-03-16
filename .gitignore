@@ -46,6 +46,9 @@
 *.idb
 *.pdb
 
+# Binary
+*.tp
+
 # Kernel Module Compile Results
 *.mod*
 *.cmd

@@ -3,15 +3,13 @@
 #include <string.h>
 #include "combination.h"
 
-int minMax;
-
 void Combination(int *path, int comb[], int n, int k)
 {
     //data eh um arranjo com k elementos
     int data[k];
-    minMax = 9999;
+    int inf = 9999;
 
-    combinationUtil(path, comb, data, 0, n - 1, 0, k, n, minMax);
+    int minMax = combinationUtil(path, comb, data, 0, n - 1, 0, k, n, inf);
 
     printf("\n%d", minMax);
 
