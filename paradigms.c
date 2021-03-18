@@ -26,7 +26,7 @@ void greedyAlg(int n, int k, int *a)
     int max = -1;
     int maxLocal = 0;
 
-    for (i; i < n + 1; i++)
+    for (i = 0; i < n + 1; i++)
     {
         sum = sum + a[i];
         if (a[i] > max)

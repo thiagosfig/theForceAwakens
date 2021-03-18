@@ -4,19 +4,6 @@
 #include "combination.h"
 #include "paradigms.h"
 
-void Combination(int *path, int comb[], int n, int k)
-{
-    //data eh um arranjo com k elementos
-    int data[k];
-    int inf = 9999;
-
-    int minMax = combinationUtil(path, comb, data, 0, n - 1, 0, k, n, inf);
-
-    printf("%d\n", minMax);
-
-    return;
-}
-
 //Funcao para ler o tipo de estrategia
 int readType(char **argv)
 {
@@ -43,6 +30,8 @@ int readType(char **argv)
         // printf("Você optou por FORÇA BRUTA\n");
         return 3;
     }
+
+    return 0;
 }
 
 //Ler entrada do usuario (t n k a1 a2 ... an)
@@ -97,6 +86,8 @@ void readEntry(int type)
 
         free(rota);
     }
+
+    return;
 }
 
 int main(int argc, char **argv)

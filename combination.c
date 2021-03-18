@@ -1,6 +1,19 @@
 #include "combination.h"
 #include <stdio.h>
 
+void Combination(int *path, int comb[], int n, int k)
+{
+    //data eh um arranjo com k elementos
+    int data[k];
+    int inf = 9999;
+
+    int minMax = combinationUtil(path, comb, data, 0, n - 1, 0, k, n, inf);
+
+    printf("%d\n", minMax);
+
+    return;
+}
+
 int combinationUtil(int *path, int comb[], int data[], int start, int end, int index, int k, int n, int minMax)
 {
     int pathSize = n;
@@ -39,7 +52,7 @@ int combinationUtil(int *path, int comb[], int data[], int start, int end, int i
         if (minMax > maxLocal)
             minMax = maxLocal;
 
-        return;
+        return minMax;
     }
 
     for (i = start; i <= end && end - i + 1 >= k - index; i++)
