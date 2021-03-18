@@ -13,4 +13,4 @@ paradigms.o: paradigms.c paradigms.h
 	gcc -o paradigms.o paradigms.c -c -W -Wall
 
 clean:
-	rm -rf *.o *~ 
+	rm -rf *.o *~ tp

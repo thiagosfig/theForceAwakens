@@ -12,7 +12,7 @@ void Combination(int *path, int comb[], int n, int k)
 
     int minMax = combinationUtil(path, comb, data, 0, n - 1, 0, k, n, inf);
 
-    printf("\n%d", minMax);
+    printf("%d\n", minMax);
 
     return;
 }
@@ -30,17 +30,17 @@ int readType(char **argv)
 
     if (strcmp(type, PD) == 0)
     {
-        printf("Você optou por PROGRAMAÇÃO DINÂMICA\n");
+        // printf("Você optou por PROGRAMAÇÃO DINÂMICA\n");
         return 1;
     }
     if (strcmp(type, AG) == 0)
     {
-        printf("Você optou por ALGORITMO GULOSO\n");
+        // printf("Você optou por ALGORITMO GULOSO\n");
         return 2;
     }
     if (strcmp(type, FB) == 0)
     {
-        printf("Você optou por FORÇA BRUTA\n");
+        // printf("Você optou por FORÇA BRUTA\n");
         return 3;
     }
 }
@@ -55,7 +55,7 @@ void readEntry(int type)
 
     int t, n, k, a;
     int *rota;
-    printf("Digite sua entrada: ");
+    // printf("Digite sua entrada: ");
     scanf("%d", &t);
 
     for (int j = 0; j < t; j++)
