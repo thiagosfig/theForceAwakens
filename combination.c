@@ -40,7 +40,7 @@ int combinationUtil(int *path, int comb[], int data[], int start, int end, int i
             posAtual = data[j];
         }
         // printf("\nSaindo de %d para F -> ", posAtual);
-        for (int y = posAtual; y <= pathSize + 1; y++)
+        for (int y = posAtual; y < pathSize + 1; y++)
         {
             custoViagem = custoViagem + path[y];
         }

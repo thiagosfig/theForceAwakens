@@ -44,7 +44,6 @@ void readEntry(int type)
 
     int t, n, k, a;
     int *rota;
-    // printf("Digite sua entrada: ");
     scanf("%d", &t);
 
     for (int j = 0; j < t; j++)
