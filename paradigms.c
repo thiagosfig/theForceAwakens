@@ -274,18 +274,28 @@ void greedyAlg(int n, int k, int *a)
 {
     int maxLocal = 0;
 
-    int max = greedyAlgMax(n, k, a);
-    int mean = greedyAlgMean(n, k, a);
-
-    if (max <= mean)
+    if (k > 0)
     {
-        maxLocal = max;
+        int max = greedyAlgMax(n, k, a);
+        int mean = greedyAlgMean(n, k, a);
+
+        if (max <= mean)
+        {
+            maxLocal = max;
+        }
+        else
+        {
+            maxLocal = mean;
+        }
     }
     else
     {
-        maxLocal = mean;
+        int i = 0;
+        for (i = 0; i <= n; i++)
+        {
+            maxLocal += a[i];
+        }
     }
-
     printf("%d\n", maxLocal);
 
     return;
