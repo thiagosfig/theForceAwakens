@@ -23,29 +23,23 @@ int combinationUtil(int **path, int comb[], int data[], int start, int end, int 
     int custoViagem = 0;
     int maxLocal = 0;
 
+    //Percorrer combinação
     if (index == k)
     {
         for (j = 0; j < k; j++)
         {
             posDestino = data[j];
-            // printf("\nSaindo de %d para %d -> ", posAtual, posDestino);
             custoViagem = path[posAtual][posDestino];
-            // printf("Custo: %d", custoViagem);
             if (custoViagem > maxLocal)
                 maxLocal = custoViagem;
             custoViagem = 0;
             posAtual = data[j];
         }
-        // printf("\nSaindo de %d para F -> ", posAtual);
+
         custoViagem = path[posAtual][pathSize + 1];
-        // for (int y = posAtual; y < pathSize + 1; y++)
-        // {
-        //     custoViagem = custoViagem + path[y];
-        // }
-        // printf("Custo: %d\n", custoViagem);
+
         if (custoViagem > maxLocal)
             maxLocal = custoViagem;
-        // printf("Max local = %d\n", maxLocal);
 
         if (minMax > maxLocal)
             minMax = maxLocal;
@@ -53,6 +47,7 @@ int combinationUtil(int **path, int comb[], int data[], int start, int end, int 
         return minMax;
     }
 
+    //Gerar combinações possiveis
     for (i = start; i <= end && end - i + 1 >= k - index; i++)
     {
         data[index] = comb[i];

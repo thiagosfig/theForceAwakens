@@ -7,118 +7,117 @@
 #include "paradigms.h"
 #include "paradigmsUtil.h"
 
-
-//programacao dinamica com recorrencia forca bruta
-int dynamic_algorithm(int atual, int size, int n, int k, int **matriz)
+//programacao dinamica com memoization
+int dynamicProg(int n, int k, int *rota)
 {
-    int maxL, maxL1, minL;
+    int atual = n + 1;
+    int **matriz = matrizCaminhos(n, k, rota);
+    int ***mat;
 
-    //Máximo de planetas já conquistado
-    if (k == 0)
+    // variaveis para iteracao loop for
+    int i, j, l;
+
+    //dimensoes da matriz
+    int a = atual + 1;
+    int b = n + 1;
+    int c = k + 1;
+
+    // Alocacao dinâmica da matriz
+    mat = (int ***)malloc(a * sizeof(int *));
+
+    for (i = 0; i < a; i++)
     {
-        return matriz[atual][size];
+        mat[i] = (int **)malloc(b * sizeof(int *));
     }
 
-    // k igual a quantidade de planetas a frente
-    // Será necssário conquistar os próximos planetas
-    if (k == (size - n))
+    for (i = 0; i < a; i++)
     {
-        k--;
-        maxL = max(
-            matriz[atual][n],
-            dynamic_algorithm(n, size, n + 1, k, matriz));
-        return maxL;
-    }
-
-    //Chegou ao último planeta
-    if (n == size - 1)
-    {
-        maxL = max(
-            matriz[atual][n],
-            matriz[n][size]);
-        return maxL;
-    }
-
-    //conquistar planeta
-    maxL =
-        max(
-            matriz[atual][n],
-            dynamic_algorithm(n, size, n + 1, k - 1, matriz));
-
-    //pular planeta
-    maxL1 =
-        max(
-            matriz[atual][n + 1],
-            dynamic_algorithm(atual, size, n + 1, k, matriz));
-
-    minL = min(
-        maxL,
-        maxL1);
-
-    return minL;
-}
-
-//criar matriz para ser utilizada na pd
-void dynamicProg(int n, int k, int *a)
-{
-    int aux;
-    int aux2 = k;
-    int **matriz;
-    int sum;
-
-    matriz = (int **)malloc((n + 2) * sizeof(int *));
-
-    for (int i = 0; i < n + 2; i++)
-    {
-        matriz[i] = (int *)malloc((n + 2) * sizeof(int));
-    }
-
-    for (int i = 0; i < n + 2; i++)
-    {
-        aux = aux2;
-        sum = 0;
-        for (int j = 0; j < n + 2; j++)
+        for (j = 0; j < b; j++)
         {
-            if (i >= j)
+            mat[i][j] = (int *)malloc(c * sizeof(int *));
+        }
+    }
+    ///////////// fim alocacao matriz
+
+    ////////////// inicio utilziar a matriz
+    for (i = 0; i <= atual; i++)
+    {
+        for (j = 0; j <= k; j++)
+        {
+            mat[i][0][j] = 0;
+        }
+    }
+
+    for (i = 0; i <= atual; i++)
+    {
+        for (j = 0; j <= n; j++)
+        {
+            mat[i][j][0] = matriz[0][i];
+        }
+    }
+
+    for (i = 1; i <= n; i++)
+    {
+        for (j = 1; j <= k; j++)
+        {
+            for (l = 1; l <= atual; l++)
             {
-                matriz[i][j] = 0;
-            }
-            else
-            {
-                if ((aux > 0) & (j - 1 == n - aux + 1))
+
+                if (i <= j)
                 {
-                    matriz[i][j] = -999;
-                    aux--;
+                    mat[l][i][j] = max(
+                        mat[i][i - 1][j - 1],
+                        matriz[i][l]);
                 }
+
                 else
                 {
-                    sum += a[j - 1];
-                    matriz[i][j] = sum;
+                    mat[l][i][j] = min(
+                        max(
+                            mat[i][i - 1][j - 1],
+                            matriz[i][l]),
+
+                        max(
+                            mat[l][i - 1][j],
+                            matriz[i - 1][l]));
                 }
             }
-            // printf("\t%d ", matriz[i][j]);
         }
-        aux2--;
-        // printf("\n");
     }
+    ///////////// fim utilizar a matriz
 
-    PDmemo(n, k, matriz);
+    printf("%d\n", mat[atual][n][k]);
 
-    LiberaMatriz(matriz, n + 2);
+    // Libera matriz de caminhos
+    liberaMatriz(matriz, n + 2);
 
-    return;
+    ////////// inicio liberacao da matriz
+    for (i = 0; i < a; i++)
+    {
+        for (j = 0; j < b; j++)
+        {
+            free(mat[i][j]);
+        }
+    }
+    for (i = 0; i < a; i++)
+    {
+        free(mat[i]);
+    }
+    free(mat);
+    /////////// fim liberacao da matriz
+
+    return 0;
 }
 
-
 //base para algoritmo guloso
-void greedyAlg(int n, int k, int *a)
+void greedyAlg(int n, int k, int *rota)
 {
     int maxLocal = 0;
 
     if (k > 0)
     {
-        int max = greedyAlgMax(n, k, a);
-        int mean = greedyAlgMean(n, k, a);
+        int max = greedyAlgMax(n, k, rota);
+        int mean = greedyAlgMean(n, k, rota);
 
         if (max <= mean)
         {
@@ -134,7 +133,7 @@ void greedyAlg(int n, int k, int *a)
         int i = 0;
         for (i = 0; i <= n; i++)
         {
-            maxLocal += a[i];
+            maxLocal += rota[i];
         }
     }
     printf("%d\n", maxLocal);
@@ -143,49 +142,10 @@ void greedyAlg(int n, int k, int *a)
 }
 
 //algoritmo de força bruta
-void bruteForce(int n, int k, int *a)
+void bruteForce(int n, int k, int *rota)
 {
 
-    int aux;
-    int aux2 = k;
-    int **matriz;
-    int sum;
-
-    matriz = (int **)malloc((n + 2) * sizeof(int *));
-
-    for (int i = 0; i < n + 2; i++)
-    {
-        matriz[i] = (int *)malloc((n + 2) * sizeof(int));
-    }
-
-    for (int i = 0; i < n + 2; i++)
-    {
-        aux = aux2;
-        sum = 0;
-        for (int j = 0; j < n + 2; j++)
-        {
-            if (i >= j)
-            {
-                matriz[i][j] = 0;
-            }
-            else
-            {
-                if ((aux > 0) & (j - 1 == n - aux + 1))
-                {
-                    matriz[i][j] = -999;
-                    aux--;
-                }
-                else
-                {
-                    sum += a[j - 1];
-                    matriz[i][j] = sum;
-                }
-            }
-            // printf("\t%d ", matriz[i][j]);
-        }
-        aux2--;
-        // printf("\n");
-    }
+    int **matriz = matrizCaminhos(n, k, rota);
 
     //comb eh um vetor de 1 a n planetas
     int *comb = (int *)calloc(n, sizeof(int));
@@ -197,7 +157,7 @@ void bruteForce(int n, int k, int *a)
 
     Combination(matriz, comb, n, k);
 
-    LiberaMatriz(matriz, n + 2);
+    liberaMatriz(matriz, n + 2);
 
     free(comb);
 

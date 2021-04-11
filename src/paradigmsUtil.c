@@ -5,17 +5,6 @@
 
 #include "paradigmsUtil.h"
 
-//funcao para liberar matriz de 2 dimensões
-void LiberaMatriz(int **matriz, int size)
-{
-    int i;
-    for (i = 0; i < size; i++)
-    {
-        free(matriz[i]);
-    }
-    free(matriz);
-}
-
 //funcao que retorna maior valor
 int max(int a, int b)
 {
@@ -32,118 +21,112 @@ int min(int a, int b)
     return b;
 }
 
-//programacao dinamica com memoization
-int PDmemo(int n, int k, int **matriz)
+//programacao dinamica com recorrencia forca bruta
+int recorrenciaPD(int atual, int size, int n, int k, int **matriz)
 {
-    int atual = n + 1;
-    int ***mat;
+    int maxL, maxL1, minL;
 
-    // variaveis para iteracao loop for
-    int i, j, l;
-
-    //dimensoes da matriz
-    int a = atual + 1;
-    int b = n + 1;
-    int c = k + 1;
-
-    // Alocacao dinâmica da matriz
-    mat = (int ***)malloc(a * sizeof(int *));
-
-    for (i = 0; i < a; i++)
+    //Máximo de planetas já conquistado
+    if (k == 0)
     {
-        mat[i] = (int **)malloc(b * sizeof(int *));
+        return matriz[atual][size];
     }
 
-    for (i = 0; i < a; i++)
+    // k igual a quantidade de planetas a frente
+    // Será necssário conquistar os próximos planetas
+    if (k == (size - n))
     {
-        for (j = 0; j < b; j++)
-        {
-            mat[i][j] = (int *)malloc(c * sizeof(int *));
-        }
-    }
-    ///////////// fim alocacao matriz
-
-    ////////////// inicio utilziar a matriz
-    for (i = 0; i <= atual; i++)
-    {
-        for (j = 0; j <= k; j++)
-        {
-            mat[i][0][j] = 0;
-        }
+        k--;
+        maxL = max(
+            matriz[atual][n],
+            recorrenciaPD(n, size, n + 1, k, matriz));
+        return maxL;
     }
 
-    for (i = 0; i <= atual; i++)
+    //Chegou ao último planeta
+    if (n == size - 1)
     {
-        for (j = 0; j <= n; j++)
-        {
-            mat[i][j][0] = matriz[0][i];
-        }
+        maxL = max(
+            matriz[atual][n],
+            matriz[n][size]);
+        return maxL;
     }
 
-    for (i = 1; i <= n; i++)
+    //conquistar planeta
+    maxL =
+        max(
+            matriz[atual][n],
+            recorrenciaPD(n, size, n + 1, k - 1, matriz));
+
+    //pular planeta
+    maxL1 =
+        max(
+            matriz[atual][n + 1],
+            recorrenciaPD(atual, size, n + 1, k, matriz));
+
+    minL = min(
+        maxL,
+        maxL1);
+
+    return minL;
+}
+
+//funcao para liberar matriz de 2 dimensões
+void liberaMatriz(int **matriz, int size)
+{
+    int i;
+    for (i = 0; i < size; i++)
     {
-        for (j = 1; j <= k; j++)
+        free(matriz[i]);
+    }
+    free(matriz);
+}
+
+//Cria matriz com distancia entre planetas
+int **matrizCaminhos(int n, int k, int *a)
+{
+    int aux;
+    int aux2 = k;
+    int **matriz;
+    int sum;
+
+    matriz = (int **)malloc((n + 2) * sizeof(int *));
+
+    for (int i = 0; i < n + 2; i++)
+    {
+        matriz[i] = (int *)malloc((n + 2) * sizeof(int));
+    }
+
+    for (int i = 0; i < n + 2; i++)
+    {
+        aux = aux2;
+        sum = 0;
+        for (int j = 0; j < n + 2; j++)
         {
-            for (l = 1; l <= atual; l++)
+            if (i >= j)
             {
-
-                if (i <= j)
+                matriz[i][j] = 0;
+            }
+            else
+            {
+                if ((aux > 0) & (j - 1 == n - aux + 1))
                 {
-                    mat[l][i][j] = max(
-                        mat[i][i - 1][j - 1],
-                        matriz[i][l]);
+                    matriz[i][j] = -999;
+                    aux--;
                 }
-
                 else
                 {
-                    mat[l][i][j] = min(
-                        max(
-                            mat[i][i - 1][j - 1],
-                            matriz[i][l]),
-
-                        max(
-                            mat[l][i - 1][j],
-                            matriz[i - 1][l]));
+                    sum += a[j - 1];
+                    matriz[i][j] = sum;
                 }
             }
+            // printf("\t%d ", matriz[i][j]);
         }
+        aux2--;
+        // printf("\n");
     }
-    ///////////// fim utilizar a matriz
 
-    ////////////// inicio impressão matriz
-    // for (int i = 0; i <= n; i++)
-    // {
-    //     for (int j = 0; j <= k; j++)
-    //     {
-    //         printf("[");
-    //         for (int l = 1; l <= atual; l++)
-    //         {
-    //             printf(" %d ", mat[l][i][j]);
-    //         }
-    //         printf("], ");
-    //     }
-    //     printf("\n");
-    // }
-    ///////////// fim impressão a matriz
-
-    printf("%d\n", mat[atual][n][k]);
-
-    ////////// inicio liberacao da matriz
-    for (i = 0; i < a; i++)
-    {
-        for (j = 0; j < b; j++)
-        {
-            free(mat[i][j]);
-        }
-    }
-    for (i = 0; i < a; i++)
-    {
-        free(mat[i]);
-    }
-    free(mat);
-    /////////// fim liberacao da matriz
-
-    return 0;
+    return matriz;
 }
 
 //algoritmo guloso que utiliza o maior caminho entre planetas como estratégia gulosa
