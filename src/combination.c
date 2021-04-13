@@ -1,10 +1,16 @@
 #include "combination.h"
+#include "paradigmsUtil.h"
 #include <stdio.h>
 
-void Combination(int **path, int comb[], int n, int k)
+//Função para chamada inicial da construção das combinações
+//Entrada:
+//Saída:
+void combination(int **path, int comb[], int n, int k)
 {
     //data eh um arranjo com k elementos
     int data[k];
+
+    //Valor 'alto' para 'simular infinito'
     int inf = 9999;
 
     int minMax = combinationUtil(path, comb, data, 0, n - 1, 0, k, n, inf);
@@ -14,40 +20,43 @@ void Combination(int **path, int comb[], int n, int k)
     return;
 }
 
+//Algoritmo para gerar as combinações e encontrar o menor sub-caminho máximo
+//Entrada:
+//Saída:
 int combinationUtil(int **path, int comb[], int data[], int start, int end, int index, int k, int n, int minMax)
 {
-    int pathSize = n;
+    //variáveis para iteração do loop
     int i, j;
+
+    //variáveis para controle da viagem
     int posAtual = 0;
     int posDestino = 0;
+
+    //variáveis para custo da viagem
     int custoViagem = 0;
     int maxLocal = 0;
 
-    //Percorrer combinação
+    //Percorrer cada combinação gerada e encontra o maior sub-caminho
     if (index == k)
     {
         for (j = 0; j < k; j++)
         {
             posDestino = data[j];
             custoViagem = path[posAtual][posDestino];
-            if (custoViagem > maxLocal)
-                maxLocal = custoViagem;
+            maxLocal = max(custoViagem, maxLocal);
             custoViagem = 0;
             posAtual = data[j];
         }
 
-        custoViagem = path[posAtual][pathSize + 1];
+        custoViagem = path[posAtual][n + 1];
 
-        if (custoViagem > maxLocal)
-            maxLocal = custoViagem;
-
-        if (minMax > maxLocal)
-            minMax = maxLocal;
+        maxLocal = max(custoViagem, maxLocal);
+        minMax = min(minMax, maxLocal);
 
         return minMax;
     }
 
-    //Gerar combinações possiveis
+    //Gerar combinações possiveis por meio de recursividade
     for (i = start; i <= end && end - i + 1 >= k - index; i++)
     {
         data[index] = comb[i];

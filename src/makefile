@@ -1,7 +1,7 @@
 all: tp
  
 tp: main.o combination.o paradigms.o paradigmsUtil.o
-	gcc -o tp main.o combination.o paradigms.o paradigmsUtil.o
+	gcc -o tp main.o combination.o paradigms.o paradigmsUtil.o -lm
  
 main.o: main.c combination.h paradigms.h
 	gcc -o main.o main.c -c -W -Wall

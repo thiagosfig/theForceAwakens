@@ -13,13 +13,15 @@ int main()
 
     srand((unsigned)time(&x));
 
-    t = 1 + rand() % 100;
+    t = 1 + rand() % 1;
     printf("%d\n", t);
 
     for (i = 0; i < t; i++)
     {
-        n = 1 + rand() % 500;
-        k = 0 + rand() % n / 2;
+        // n = 1 + rand() % 500;
+        // k = 0 + rand() % n / 2;
+        n = 500;
+        k = 250;
         printf("%d %d\n", n, k);
         for (j = 0; j <= n; j++)
         {

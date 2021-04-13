@@ -7,22 +7,24 @@
 #include "paradigms.h"
 #include "paradigmsUtil.h"
 
-//programacao dinamica com memoization
-int dynamicProg(int n, int k, int *rota)
+//Programacao Dinamica com memoization
+//Entrada:
+//Saída:
+void dynamicProg(int n, int k, int *rota)
 {
     int atual = n + 1;
     int **matriz = matrizCaminhos(n, k, rota);
     int ***mat;
 
-    // variaveis para iteracao loop for
+    //Variaveis para iteracao loop for
     int i, j, l;
 
-    //dimensoes da matriz
+    //Dimensoes da matriz mat
     int a = atual + 1;
     int b = n + 1;
     int c = k + 1;
 
-    // Alocacao dinâmica da matriz
+    //Alocacao dinâmica da matriz mat
     mat = (int ***)malloc(a * sizeof(int *));
 
     for (i = 0; i < a; i++)
@@ -37,9 +39,9 @@ int dynamicProg(int n, int k, int *rota)
             mat[i][j] = (int *)malloc(c * sizeof(int *));
         }
     }
-    ///////////// fim alocacao matriz
+    //Fim alocacao matriz
 
-    ////////////// inicio utilziar a matriz
+    //Preenchimento da matriz
     for (i = 0; i <= atual; i++)
     {
         for (j = 0; j <= k; j++)
@@ -84,14 +86,15 @@ int dynamicProg(int n, int k, int *rota)
             }
         }
     }
-    ///////////// fim utilizar a matriz
+    //Fim preenchimento matriz
 
+    //Impressão do resultado
     printf("%d\n", mat[atual][n][k]);
 
-    // Libera matriz de caminhos
+    //Libera matriz de caminhos
     liberaMatriz(matriz, n + 2);
 
-    ////////// inicio liberacao da matriz
+    //Inicio liberacao da matriz mat
     for (i = 0; i < a; i++)
     {
         for (j = 0; j < b; j++)
@@ -104,61 +107,64 @@ int dynamicProg(int n, int k, int *rota)
         free(mat[i]);
     }
     free(mat);
-    /////////// fim liberacao da matriz
+    //Fim liberacao da matriz mat
 
-    return 0;
+    return;
 }
 
-//base para algoritmo guloso
+//Algoritmo Guloso
+//Entrada:
+//Saída:
 void greedyAlg(int n, int k, int *rota)
 {
     int maxLocal = 0;
 
+    //Verificação se é necessário conquistar algum planeta
     if (k > 0)
     {
-        int max = greedyAlgMax(n, k, rota);
-        int mean = greedyAlgMean(n, k, rota);
+        int max = greedyAlgMax(n, k, rota);   // Estratégia gulosa 01
+        int mean = greedyAlgMean(n, k, rota); // Estratégia gulosa 02
 
-        if (max <= mean)
-        {
-            maxLocal = max;
-        }
-        else
-        {
-            maxLocal = mean;
-        }
+        maxLocal = min(max, mean); // Escolhe resultado da melhor estratégia
     }
     else
     {
-        int i = 0;
+        int i;
         for (i = 0; i <= n; i++)
         {
             maxLocal += rota[i];
         }
     }
+
+    //Impressão do resultado
     printf("%d\n", maxLocal);
 
     return;
 }
 
-//algoritmo de força bruta
+//Algoritmo de Força Bruta
+//Entrada:
+//Saída:
 void bruteForce(int n, int k, int *rota)
 {
 
+    //Gerando matriz de caminhos entre planetas
     int **matriz = matrizCaminhos(n, k, rota);
 
-    //comb eh um vetor de 1 a n planetas
+    //Comb é um vetor de 1 a n planetas
     int *comb = (int *)calloc(n, sizeof(int));
-
     for (int i = 1; i < n + 1; i++)
     {
         comb[i - 1] = i;
     }
 
-    Combination(matriz, comb, n, k);
+    //Gerar e testar todas as combinações
+    combination(matriz, comb, n, k);
 
+    //Liberar matriz de caminhos
     liberaMatriz(matriz, n + 2);
 
+    //Liberar arranjo de planetas
     free(comb);
 
     return;
