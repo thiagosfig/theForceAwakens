@@ -46,6 +46,7 @@ void dynamicProg(int n, int k, int *rota)
     //Fim alocacao matriz
 
     //Preenchimento da matriz
+    //caso base onde n = 0
     for (i = 0; i <= atual; i++)
     {
         for (j = 0; j <= k; j++)
@@ -54,6 +55,7 @@ void dynamicProg(int n, int k, int *rota)
         }
     }
 
+    //caso base para k = 0
     for (i = 0; i <= atual; i++)
     {
         for (j = 0; j <= n; j++)
@@ -62,6 +64,7 @@ void dynamicProg(int n, int k, int *rota)
         }
     }
 
+    //utilização da recorrência de subproblemas
     for (i = 1; i <= n; i++)
     {
         for (j = 1; j <= k; j++)
@@ -154,7 +157,7 @@ void greedyAlg(int n, int k, int *rota)
 //Entrada: int     n -> Numero de planetas da rota;
 //         int     k -> Numero de planetas a serem reconquistados;
 //         int *rota -> Distancias da rota;
-//Saída:   -   
+//Saída:   -
 //int[]     -> Solucao otima da reconquista para os parametros dados?;
 void bruteForce(int n, int k, int *rota)
 {

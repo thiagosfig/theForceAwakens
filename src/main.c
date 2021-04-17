@@ -6,10 +6,10 @@
 #include "paradigms.h"
 
 //Entrada:
-//t - quantiade de instancias do problema
+//t - quantidade de instancias do problema
 //n - quantidade de planetas de uma instancia
 //k - quantidade de planetas a ser conquistado
-//d1, d2, ..., dn - custo da viagem entre planetas -> I p/ P1 = d1 .... an p/ F = dn
+//d1, d2, ..., dn - custo da viagem entre planetas -> I p/ P1 = d1 .... Pn p/ F = dn
 //Saida: menor maximo dos sub-caminhos entre os planetas conquistados
 
 //Funcao para ler o tipo de estrategia e retornar um inteiro que representa essa estrategia.
@@ -105,7 +105,7 @@ void readEntry(int type)
 
 //Funcao main que recebe o paradigma que sera executado e as instancias do problema.
 //Entrada: int    argc -> Valor que representa o numero de argumentos passados na execucao do programa;
-//         char **argv -> Valor que representa os argumentos passados para a execucao do programa 
+//         char **argv -> Valor que representa os argumentos passados para a execucao do programa
 //                        (paradigma e instancias);
 //Saida:   -
 int main(int argc, char **argv)

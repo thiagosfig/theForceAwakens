@@ -12,8 +12,8 @@ int max(int a, int b);
 int min(int a, int b);
 
 //Entrada: int    atual -> Planeta atual da rota;
-//         int     size -> 
-//         int        n -> Numero de planetas da rota;
+//         int     size -> Numero de planetas da rota;
+//         int        n -> Próximo planeta da rota;
 //         int        k -> Numero de planetas a serem conquistados;
 //         int **matriz -> Matriz quadrada que representa a distancia dos planetas da rota;
 //Saida:   int       mn -> Valor minimo dos custos maximos de conquista dos planetas;

@@ -29,8 +29,8 @@ int min(int a, int b)
 
 //Programacao Dinamica a partir da recorrencia de custo (Forca Bruta).
 //Entrada: int    atual -> Planeta atual da rota;
-//         int     size -> 
-//         int        n -> Numero de planetas da rota;
+//         int     size -> Numero de planetas da rota;
+//         int        n -> Próximo planeta da rota;
 //         int        k -> Numero de planetas a serem conquistados;
 //         int **matriz -> Matriz quadrada que representa a distancia dos planetas da rota;
 //Saida:   int       mn -> Valor minimo dos custos maximos de conquista dos planetas;
@@ -41,6 +41,7 @@ int recorrenciaPD(int atual, int size, int n, int k, int **matriz)
     int mx1, mx2, mn;
 
     //Máximo de planetas já conquistado
+    //caso base em que já se conquistou os k planetas necessários
     if (k == 0)
     {
         return matriz[atual][size];
@@ -57,6 +58,7 @@ int recorrenciaPD(int atual, int size, int n, int k, int **matriz)
     }
 
     //chegou ao último planeta
+    //caso base em que não há mais planetas
     //será necessário ir direto para o final
     if (n == size - 1)
     {
