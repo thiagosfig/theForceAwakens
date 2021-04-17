@@ -3,7 +3,7 @@
 
 //Entrada: int **path -> Matriz de caminhos com as distancias dos planetas da rota;
 //         int comb[] -> Vetor com [1...n] planetas da rota;
-//         int data[] -> Vetor auxiliar com [1...k] elementos; 
+//         int data[] -> Vetor auxiliar com [1...k] elementos;
 //         int  start -> Indice que indica o inicio das combinacoes que serao geradas;
 //         int    end -> Limite superior das combinacoes que serao geradas;
 //         int  index -> Indice que serve como marcador de qual combinacao esta sendo gerada;
@@ -16,8 +16,8 @@ int combinationUtil(int **path, int comb[], int data[], int start, int end, int 
 //Entrada: int **path -> Matriz de caminhos com as distancias dos planetas da rota;
 //         int comb[] -> Vetor com [1..n] planetas da rota;
 //         int      n -> Numero de planetas da rota;
-//         int      k -> Numero de planetas a serem reconquistados;
-//Saída:   -
-void combination(int **path, int comb[], int n, int k);
+//         int      k -> Numero de planetas a serem conquistados
+//Saída:   Será impresso o maior caminho da solução aproximada;
+int combination(int **path, int comb[], int n, int k);
 
 #endif

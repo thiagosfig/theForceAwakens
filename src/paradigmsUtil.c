@@ -29,7 +29,7 @@ int min(int a, int b)
 
 //Programacao Dinamica a partir da recorrencia de custo (Forca Bruta).
 //Entrada: int    atual -> Planeta atual da rota;
-//         int     size -> Numero de planetas da rota;
+//         int     size -> Numero de rotas;
 //         int        n -> Próximo planeta da rota;
 //         int        k -> Numero de planetas a serem conquistados;
 //         int **matriz -> Matriz quadrada que representa a distancia dos planetas da rota;
@@ -152,60 +152,6 @@ int **matrizCaminhos(int n, int k, int *a)
     return matriz;
 }
 
-//Algoritmo Guloso com estratégia gulosa de maior sub-caminho entre pares de planetas.
-//Entrada: int        n -> Numero de planetas da rota;
-//         int        k -> Numero de planetas a serem reconquistados;
-//         int       *a -> Distancias da rota;
-//Saida:   int maxLocal -> Valor que representa o maior custo de conquistar k planetas da rota;
-int greedyAlgMax(int n, int k, int *a)
-{
-
-    //Variaveis para iteraçao de loop
-    int i, j, y;
-
-    //caminho Maximo
-    int cMax = -1;
-    int maxLocal = 0;
-
-    //Encontrar o maior caminho entre um par de planetas adjacentes
-    for (i = 0; i <= n; i++)
-    {
-        cMax = max(a[i], cMax);
-    }
-
-    int posDestino = 1;
-    int posAtual = 0;
-    int custoViagem = 0;
-
-    //Conquistar k planetas e somar o custo da viagem
-    for (j = 0; j < k; j++)
-    {
-        for (y = posAtual; y < posDestino; y++)
-        {
-            custoViagem = custoViagem + a[y];
-            if ((custoViagem < cMax) & (posDestino < n) & ((custoViagem + a[y + 1]) <= cMax) & ((n - y) > (k - j)))
-            {
-                posDestino++;
-            }
-        }
-
-        maxLocal = max(custoViagem, maxLocal);
-        custoViagem = 0;
-        posAtual = posDestino;
-        posDestino++;
-    }
-
-    //Finalizar viagem após a conquisa de k planetas
-    for (y = posAtual; y <= n; y++)
-    {
-        custoViagem = custoViagem + a[y];
-    }
-
-    maxLocal = max(custoViagem, maxLocal);
-
-    return maxLocal;
-}
-
 //Algoritmo Guloso com estratégia gulosa de média do caminho.
 //Entrada: int        n -> Numero de planetas da rota;
 //         int        k -> Numero de planetas a serem reconquistados;
@@ -227,7 +173,7 @@ int greedyAlgMean(int n, int k, int *a)
     {
         sum = sum + a[i];
     }
-    cMax = ((sum - (sum % k)) / (k + 1)) + 2;
+    cMax = sum / (k + 1) * 1.4; // acrescenta 40% à média como fator de correção
 
     int posDestino = 1;
     int posAtual = 0;

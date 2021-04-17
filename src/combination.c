@@ -2,16 +2,16 @@
 #include "paradigmsUtil.h"
 #include <stdio.h>
 
-//Função que inicia a construcao das combinacoes, alem de imprimir os valores das solucoes
-//geradas a partir delas.
+//Função que inicia a construcao das combinacoes, alem de retornar o valor da solucão
+//gerada a partir das combinacoes.
 //Entrada: int **path -> Matriz de caminhos com as distancias dos planetas da rota;
 //         int comb[] -> Vetor com [1..n] planetas da rota;
 //         int      n -> Numero de planetas da rota;
-//         int      k -> Numero de planetas a serem reconquistados;
-//Saída:   -
-void combination(int **path, int comb[], int n, int k)
+//         int      k -> Numero de planetas a serem conquistados
+//Saída:   Será impresso o maior caminho da solução aproximada;
+int combination(int **path, int comb[], int n, int k)
 {
-    //Data e um arranjo com k elementos
+    //Data é um arranjo com k elementos
     int data[k];
 
     //Valor 'alto' para 'simular infinito'
@@ -19,15 +19,13 @@ void combination(int **path, int comb[], int n, int k)
 
     int minMax = combinationUtil(path, comb, data, 0, n - 1, 0, k, n, inf);
 
-    printf("%d\n", minMax);
-
-    return;
+    return minMax;
 }
 
 //Algoritmo para gerar as combinações e encontrar o menor sub-caminho máximo.
 //Entrada: int **path -> Matriz de caminhos com as distancias dos planetas da rota;
 //         int comb[] -> Vetor com [1...n] planetas da rota;
-//         int data[] -> Vetor auxiliar com [1...k] elementos; 
+//         int data[] -> Vetor auxiliar com [1...k] elementos;
 //         int  start -> Indice que indica o inicio das combinacoes que serao geradas;
 //         int    end -> Limite superior das combinacoes que serao geradas;
 //         int  index -> Indice que serve como marcador de qual combinacao esta sendo gerada;

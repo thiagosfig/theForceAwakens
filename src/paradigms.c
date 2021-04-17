@@ -12,8 +12,7 @@
 //Entrada: int     n -> Numero de planetas da rota;
 //         int     k -> Numero de planetas a serem reconquistados;
 //         int *rota -> Distancias da rota;
-//Saída:   -
-//int[]     -> Solucao otima do problema da reconquista para os parametros dados?;
+//Saída:   Será impresso o maior caminho da solução ótima;
 void dynamicProg(int n, int k, int *rota)
 {
     int atual = n + 1;
@@ -123,8 +122,7 @@ void dynamicProg(int n, int k, int *rota)
 //Entrada: int     n -> Numero de planetas da rota;
 //         int     k -> Numero de planetas a serem reconquistados;
 //         int *rota -> Distancias da rota;
-//Saída:   -
-//int[]     -> Solucao aproximada da reconquista para os parametros dados?;
+//Saída:   Será impresso o maior caminho da solução aproximada;
 void greedyAlg(int n, int k, int *rota)
 {
     int maxLocal = 0;
@@ -132,10 +130,7 @@ void greedyAlg(int n, int k, int *rota)
     //Verificacao se e necessário conquistar algum planeta
     if (k > 0)
     {
-        int max = greedyAlgMax(n, k, rota);   // Estrategia gulosa 01
-        int mean = greedyAlgMean(n, k, rota); // Estrategia gulosa 02
-
-        maxLocal = min(max, mean); // Escolhe resultado da melhor estrategia
+        maxLocal = greedyAlgMean(n, k, rota); // Estrategia gulosa
     }
     else
     {
@@ -157,8 +152,7 @@ void greedyAlg(int n, int k, int *rota)
 //Entrada: int     n -> Numero de planetas da rota;
 //         int     k -> Numero de planetas a serem reconquistados;
 //         int *rota -> Distancias da rota;
-//Saída:   -
-//int[]     -> Solucao otima da reconquista para os parametros dados?;
+//Saída:   Será impresso o maior caminho da solução ótima;
 void bruteForce(int n, int k, int *rota)
 {
 
@@ -173,7 +167,8 @@ void bruteForce(int n, int k, int *rota)
     }
 
     //Gerar e testar todas as combinações
-    combination(matriz, comb, n, k);
+    //Será impresso o maior caminho da solução ótima
+    printf("%d\n", combination(matriz, comb, n, k));
 
     //Liberar matriz de caminhos
     liberaMatriz(matriz, n + 2);

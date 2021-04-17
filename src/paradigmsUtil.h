@@ -12,7 +12,7 @@ int max(int a, int b);
 int min(int a, int b);
 
 //Entrada: int    atual -> Planeta atual da rota;
-//         int     size -> Numero de planetas da rota;
+//         int     size -> Numero de rotas;
 //         int        n -> Próximo planeta da rota;
 //         int        k -> Numero de planetas a serem conquistados;
 //         int **matriz -> Matriz quadrada que representa a distancia dos planetas da rota;
@@ -29,12 +29,6 @@ void liberaMatriz(int **matriz, int size);
 //         int       *a -> Distancias da rota;
 //Saida:   int **matriz -> Matriz quadrada que representa a distancia entre os planetas da rota;
 int **matrizCaminhos(int n, int k, int *a);
-
-//Entrada: int        n -> Numero de planetas da rota;
-//         int        k -> Numero de planetas a serem reconquistados;
-//         int       *a -> Distancias da rota;
-//Saida:   int maxLocal -> Valor que representa o maior custo de conquistar k planetas da rota;
-int greedyAlgMax(int n, int k, int *a);
 
 //Entrada: int        n -> Numero de planetas da rota;
 //         int        k -> Numero de planetas a serem reconquistados;

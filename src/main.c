@@ -5,13 +5,6 @@
 #include "combination.h"
 #include "paradigms.h"
 
-//Entrada:
-//t - quantidade de instancias do problema
-//n - quantidade de planetas de uma instancia
-//k - quantidade de planetas a ser conquistado
-//d1, d2, ..., dn - custo da viagem entre planetas -> I p/ P1 = d1 .... Pn p/ F = dn
-//Saida: menor maximo dos sub-caminhos entre os planetas conquistados
-
 //Funcao para ler o tipo de estrategia e retornar um inteiro que representa essa estrategia.
 //Entrada: char **argv -> Qual paradigma foi passado na entrada do programa;
 //Saida:   int         -> Inteiro que representa o paradigma a ser utilizado;
@@ -50,7 +43,11 @@ int readType(char **argv)
 }
 
 //Funcao para direcionar qual estrategia sera utilizada a partir de um inteiro.
-//Entrada: int type -> Valor indicando qual paradigma sera utilizado;
+//Entrada:  int type    -> Valor indicando qual paradigma sera utilizado;
+//          int t       -> quantidade de instancias do problema
+//          int n       -> quantidade de planetas de uma instancia
+//          int k       -> quantidade de planetas a ser conquistado
+//          int d1, d2, ..., dn -> custo da viagem entre planetas -> I p/ P1 = d1 .... Pn p/ F = dn
 //Saida:   -
 void readEntry(int type)
 {
