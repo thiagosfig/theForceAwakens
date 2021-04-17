@@ -5,9 +5,10 @@
 
 #include "paradigmsUtil.h"
 
-//Funcao que compara dois valores e retorna o maior
-//Entrada:
-//Saída:
+//Funcao que compara dois valores e retorna o maior entre eles.
+//Entrada: int a -> Primeiro dos valores a serem comparados;
+//         int b -> Segundo dos valores a serem comparados;
+//Saida:   int   -> Maior entre a e b;
 int max(int a, int b)
 {
     if (a > b)
@@ -15,9 +16,10 @@ int max(int a, int b)
     return b;
 }
 
-//Funcao que compara dois valores e retorna o menor
-//Entrada:
-//Saída:
+//Funcao que compara dois valores e retorna o menor entre eles.
+//Entrada: int a -> Primeiro dos valores a serem comparados;
+//         int b -> Segundo dos valores a serem comparados;
+//Saida:   int   -> Menor entre a e b;
 int min(int a, int b)
 {
     if (a < b)
@@ -25,13 +27,17 @@ int min(int a, int b)
     return b;
 }
 
-//Programação Dinâmica por recorrência Força Bruta
-//Entrada:
-//Saída:
+//Programacao Dinamica a partir da recorrencia de custo (Forca Bruta).
+//Entrada: int    atual -> Planeta atual da rota;
+//         int     size -> 
+//         int        n -> Numero de planetas da rota;
+//         int        k -> Numero de planetas a serem conquistados;
+//         int **matriz -> Matriz quadrada que representa a distancia dos planetas da rota;
+//Saida:   int       mn -> Valor minimo dos custos maximos de conquista dos planetas;
 int recorrenciaPD(int atual, int size, int n, int k, int **matriz)
 {
     //mx1 e mx2 recebem o máximo de uma dada recorrência
-    //mn recebe o minímo entre mx1 e mx2, ou seja, menor máxima
+    //mn recebe o minimo entre mx1 e mx2, ou seja, menor máxima
     int mx1, mx2, mn;
 
     //Máximo de planetas já conquistado
@@ -80,9 +86,10 @@ int recorrenciaPD(int atual, int size, int n, int k, int **matriz)
     return mn;
 }
 
-//Funcao que para libera a alocação dinâmica de uma matriz quadrada
-//Entrada:
-//Saída:
+//Funcao que libera a memoria alocada para a matriz quadrada.
+//Entrada: int **matriz -> Matriz quadrada que sera liberada;
+//         int     size -> Tamanho da matriz quadrada a ser liberada;
+//Saida:   -
 void liberaMatriz(int **matriz, int size)
 {
     int i;
@@ -93,9 +100,11 @@ void liberaMatriz(int **matriz, int size)
     free(matriz);
 }
 
-//Funcao para criar matriz com distancia entre planetas
-//Entrada:
-//Saída:
+//Funcao para criar matriz com distancia entre planetas.
+//Entrada: int        n -> Numero de planetas da rota;
+//         int        k -> Numero de planetas a serem reconquistados;
+//         int       *a -> Distancias da rota;
+//Saida:   int **matriz -> Matriz quadrada que representa a distancia entre os planetas da rota;
 int **matrizCaminhos(int n, int k, int *a)
 {
     int aux;
@@ -141,9 +150,11 @@ int **matrizCaminhos(int n, int k, int *a)
     return matriz;
 }
 
-//Algoritmo Guloso com estratégia gulosa de maior sub-caminho entre pares de planetas
-//Entrada:
-//Saída:
+//Algoritmo Guloso com estratégia gulosa de maior sub-caminho entre pares de planetas.
+//Entrada: int        n -> Numero de planetas da rota;
+//         int        k -> Numero de planetas a serem reconquistados;
+//         int       *a -> Distancias da rota;
+//Saida:   int maxLocal -> Valor que representa o maior custo de conquistar k planetas da rota;
 int greedyAlgMax(int n, int k, int *a)
 {
 
@@ -193,9 +204,11 @@ int greedyAlgMax(int n, int k, int *a)
     return maxLocal;
 }
 
-//Algoritmo Guloso com estratégia gulosa de média do caminho
-//Entrada:
-//Saída:
+//Algoritmo Guloso com estratégia gulosa de média do caminho.
+//Entrada: int        n -> Numero de planetas da rota;
+//         int        k -> Numero de planetas a serem reconquistados;
+//         int       *a -> Distancias da rota;
+//Saida:   int maxLocal -> Valor que representa o maior custo de conquistar k planetas da rota;
 int greedyAlgMean(int n, int k, int *a)
 {
 

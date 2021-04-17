@@ -7,9 +7,13 @@
 #include "paradigms.h"
 #include "paradigmsUtil.h"
 
-//Programacao Dinamica com memoization
-//Entrada:
-//Saída:
+//Algoritmo que imprime a solucao otima do problema da reconquista a partir da Programacao Dinamica
+//com memoization.
+//Entrada: int     n -> Numero de planetas da rota;
+//         int     k -> Numero de planetas a serem reconquistados;
+//         int *rota -> Distancias da rota;
+//Saída:   -
+//int[]     -> Solucao otima do problema da reconquista para os parametros dados?;
 void dynamicProg(int n, int k, int *rota)
 {
     int atual = n + 1;
@@ -88,7 +92,7 @@ void dynamicProg(int n, int k, int *rota)
     }
     //Fim preenchimento matriz
 
-    //Impressão do resultado
+    //Impressao do resultado
     printf("%d\n", mat[atual][n][k]);
 
     //Libera matriz de caminhos
@@ -112,20 +116,23 @@ void dynamicProg(int n, int k, int *rota)
     return;
 }
 
-//Algoritmo Guloso
-//Entrada:
-//Saída:
+//Algoritmo Guloso que imprime uma solucao aproximada para o problema da reconquista.
+//Entrada: int     n -> Numero de planetas da rota;
+//         int     k -> Numero de planetas a serem reconquistados;
+//         int *rota -> Distancias da rota;
+//Saída:   -
+//int[]     -> Solucao aproximada da reconquista para os parametros dados?;
 void greedyAlg(int n, int k, int *rota)
 {
     int maxLocal = 0;
 
-    //Verificação se é necessário conquistar algum planeta
+    //Verificacao se e necessário conquistar algum planeta
     if (k > 0)
     {
-        int max = greedyAlgMax(n, k, rota);   // Estratégia gulosa 01
-        int mean = greedyAlgMean(n, k, rota); // Estratégia gulosa 02
+        int max = greedyAlgMax(n, k, rota);   // Estrategia gulosa 01
+        int mean = greedyAlgMean(n, k, rota); // Estrategia gulosa 02
 
-        maxLocal = min(max, mean); // Escolhe resultado da melhor estratégia
+        maxLocal = min(max, mean); // Escolhe resultado da melhor estrategia
     }
     else
     {
@@ -136,22 +143,26 @@ void greedyAlg(int n, int k, int *rota)
         }
     }
 
-    //Impressão do resultado
+    //Impressao do resultado
     printf("%d\n", maxLocal);
 
     return;
 }
 
-//Algoritmo de Força Bruta
-//Entrada:
-//Saída:
+//Algoritmo de Forca Bruta que chama uma funcao para gerar e testar todas as combinacoes de
+//caminhos possiveis, alem de imprimir as solucoes encontradas.
+//Entrada: int     n -> Numero de planetas da rota;
+//         int     k -> Numero de planetas a serem reconquistados;
+//         int *rota -> Distancias da rota;
+//Saída:   -   
+//int[]     -> Solucao otima da reconquista para os parametros dados?;
 void bruteForce(int n, int k, int *rota)
 {
 
     //Gerando matriz de caminhos entre planetas
     int **matriz = matrizCaminhos(n, k, rota);
 
-    //Comb é um vetor de 1 a n planetas
+    //Comb e um vetor de 1 a n planetas
     int *comb = (int *)calloc(n, sizeof(int));
     for (int i = 1; i < n + 1; i++)
     {

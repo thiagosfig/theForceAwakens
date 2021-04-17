@@ -10,11 +10,14 @@
 //n - quantidade de planetas de uma instancia
 //k - quantidade de planetas a ser conquistado
 //d1, d2, ..., dn - custo da viagem entre planetas -> I p/ P1 = d1 .... an p/ F = dn
-//Saida: menor máximo dos sub-caminhos entre os planetas conquistados
+//Saida: menor maximo dos sub-caminhos entre os planetas conquistados
 
-//Funcao para ler o tipo de estrategia
-//Entrada:
-//Saída:
+//Funcao para ler o tipo de estrategia e retornar um inteiro que representa essa estrategia.
+//Entrada: char **argv -> Qual paradigma foi passado na entrada do programa;
+//Saida:   int         -> Inteiro que representa o paradigma a ser utilizado;
+//                        1: Programacao Dinamica;
+//                        2: Algoritmo Guloso;
+//                        3: Forca Bruta;
 int readType(char **argv)
 {
 
@@ -25,7 +28,7 @@ int readType(char **argv)
 
     sscanf(argv[1], "%s", type);
 
-    //Programação Dinâmica
+    //Programacao Dinamica
     if (strcmp(type, PD) == 0)
     {
         return 1;
@@ -37,7 +40,7 @@ int readType(char **argv)
         return 2;
     }
 
-    //Força Bruta
+    //Forca Bruta
     if (strcmp(type, FB) == 0)
     {
         return 3;
@@ -46,9 +49,9 @@ int readType(char **argv)
     return 0;
 }
 
-//Função para direcionar qual estratégia será utilizada
-//Entrada:
-//Saída:
+//Funcao para direcionar qual estrategia sera utilizada a partir de um inteiro.
+//Entrada: int type -> Valor indicando qual paradigma sera utilizado;
+//Saida:   -
 void readEntry(int type)
 {
 
@@ -100,9 +103,11 @@ void readEntry(int type)
     return;
 }
 
-//Função main
-//Entrada:
-//Saída:
+//Funcao main que recebe o paradigma que sera executado e as instancias do problema.
+//Entrada: int    argc -> Valor que representa o numero de argumentos passados na execucao do programa;
+//         char **argv -> Valor que representa os argumentos passados para a execucao do programa 
+//                        (paradigma e instancias);
+//Saida:   -
 int main(int argc, char **argv)
 {
     clock_t start, end;
